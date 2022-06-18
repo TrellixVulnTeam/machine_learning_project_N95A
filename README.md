@@ -1,59 +1,94 @@
-# Your workflow name.
-name: Deploy to heroku.
+## Start Machine Learning project.
 
-# Run workflow on every push to main branch.
-on:
-  push:
-    branches: [main]
+### Software and account Requirement.
 
-# Your workflows jobs.
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      # Check-out your repository.
-      - name: Checkout
-        uses: actions/checkout@v2
+1. [Github Account](https://github.com)
+2. [Heroku Account](https://dashboard.heroku.com/login)
+3. [VS Code IDE](https://code.visualstudio.com/download)
+4. [GIT cli](https://git-scm.com/downloads)
+5. [GIT Documentation](https://git-scm.com/docs/gittutorial)
 
 
-### ⬇ IMPORTANT PART ⬇ ###
+Creating conda environment
+```
+conda create -p venv python==3.7 -y
+```
+```
+conda activate venv/
+```
+OR 
+```
+conda activate venv
+```
 
-      - name: Build, Push and Release a Docker container to Heroku. # Your custom step name
-        uses: gonuit/heroku-docker-deploy@v1.3.3 # GitHub action name (leave it as it is).
-        with:
-          # Below you must provide variables for your Heroku app.
+```
+pip install -r requirements.txt
+```
 
-          # The email address associated with your Heroku account.
-          # If you don't want to use repository secrets (which is recommended) you can do:
-          # email: my.email@example.com
-          email: ${{ secrets.HEROKU_EMAIL }}
-          
-          # Heroku API key associated with provided user's email.
-          # Api Key is available under your Heroku account settings.
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          
-          # Name of the heroku application to which the build is to be sent.
-          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+To Add files to git
+```
+git add .
+```
 
-          # (Optional, default: "./")
-          # Dockerfile directory.
-          # For example, if you have a Dockerfile in the root of your project, leave it as follows:
-          dockerfile_directory: ./
+OR
+```
+git add <file_name>
+```
 
-          # (Optional, default: "Dockerfile")
-          # Dockerfile name.
-          dockerfile_name: Dockerfile
+> Note: To ignore file or folder from git we can write name of file/folder in .gitignore file
 
-          # (Optional, default: "")
-          # Additional options of docker build command.
-          docker_options: "--no-cache"
+To check the git status 
+```
+git status
+```
+To check all version maintained by git
+```
+git log
+```
 
-          # (Optional, default: "web")
-          # Select the process type for which you want the docker container to be uploaded.
-          # By default, this argument is set to "web".
-          # For more information look at https://devcenter.heroku.com/articles/process-model
-          process_type: web
-          
-   
-          
-### ⬆ IMPORTANT PART ⬆ ###
+To create version/commit all changes by git
+```
+git commit -m "message"
+```
+
+To send version/changes to github
+```
+git push origin main
+```
+
+To check remote url 
+```
+git remote -v
+```
+
+To setup CI/CD pipeline in heroku we need 3 information
+1. HEROKU_EMAIL = anishyadav7045075175@gmail.com
+2. HEROKU_API_KEY = <>
+3. HEROKU_APP_NAME = ml-regression-app
+
+BUILD DOCKER IMAGE
+```
+docker build -t <image_name>:<tagname> .
+```
+> Note: Image name for docker must be lowercase
+
+
+To list docker image
+```
+docker images
+```
+
+Run docker image
+```
+docker run -p 5000:5000 -e PORT=5000 f8c749e73678
+```
+
+To check running container in docker
+```
+docker ps
+```
+
+Tos stop docker conatiner
+```
+docker stop <container_id>
+```
